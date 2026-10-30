@@ -1,0 +1,43 @@
+@StoreApi_HostAddress = https://localhost:7000
+
+### Public product catalog
+GET {{StoreApi_HostAddress}}/api/products
+Accept: application/json
+
+### Public category catalog
+GET {{StoreApi_HostAddress}}/api/categories
+Accept: application/json
+
+### Register a customer (save the returned token for authenticated requests)
+POST {{StoreApi_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+  "fullName": "Example Customer",
+  "email": "customer@example.com",
+  "password": "ChangeThis!12345"
+}
+
+### Log in
+POST {{StoreApi_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "customer@example.com",
+  "password": "ChangeThis!12345"
+}
+
+### Create an order (replace the token and product ID)
+POST {{StoreApi_HostAddress}}/api/orders
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "shippingAddress": "1 Example Street, Cape Town",
+  "items": [
+    {
+      "productId": 1,
+      "quantity": 1
+    }
+  ]
+}
